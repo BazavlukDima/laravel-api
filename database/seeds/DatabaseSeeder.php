@@ -11,6 +11,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // $i = 1;
+
+        // for($i;$i<=50;$i++){
+        //     DB::table('comments')->insert([
+        //         'author' => str_random(10),
+        //         'message' => str_random(50),
+        //         'email' => str_random(4).'@'.str_random(4).'.com',
+        //         'created_at' => date('Y-m-d H:i:s'),
+        //     ]);
+        // }
     }
 }

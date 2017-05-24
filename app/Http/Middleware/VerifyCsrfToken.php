@@ -16,8 +16,6 @@ class VerifyCsrfToken extends BaseVerifier
          *api_login 18.05.2017
          */
 
-        'api/registration',
-        'api/login',
-        'api/delete',
+        'api/*',
     ];
 }

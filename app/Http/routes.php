@@ -28,3 +28,18 @@ Route::post('api/registration', 'SingInController@register');
 Route::post('api/delete', 'SingInController@deleteUserFromTable');
 
 Route::resource('api', 'SingInController', ['except' => ['index', 'store', 'update']]);
+
+Route::post('api/v2/comments', ['middleware'=>'jwt.auth', 'uses' =>'CommentsController@index']);
+
+// Route::post('api/v2/comments','CommentsController@addComment');
+// Route::resource('api/v2', ['middleware'=>'jwt.auth', 'uses' =>'CommentsController']);
+
+Route::resource('api/v2', 'CommentsController',
+    ['except' => ['create', 'store', 'update', 'show', 'edit']]
+);
+
+// Route::group(array('prefix' => 'api/v2'), function()
+//     {
+//         Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
+//         // Route::resource('categories', 'CategoryController');
+//     });
