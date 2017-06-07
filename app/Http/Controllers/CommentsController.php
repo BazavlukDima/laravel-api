@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Comments;
 
 use App\Http\Requests;
+use Validator;
+use Carbon;
 
 class CommentsController extends Controller
 {
@@ -16,44 +18,31 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comments::all();
+        $commentsModel = new Comments();
+        $comments = $commentsModel->getCommits();
 
-        // var_dump($comments = $this->makeArray($comments));die();
 
         return response()->json(['comments' => $comments], 200);
         // return response()->$comments;
     }
 
-    public function addComment(Request $request)
+    public function addComments(Request $request)
     {
-        Comments::create($request);
+        // $validator = Validator::make($request->all(), [
+        //   'messege' => 'required|string|max:255',
+        //   'body' => 'required',
+        // ]);
 
-        return redirect()->back();
+        // if ($validator->fails()) {
+        //   return response()->json(['Error' => "fails()"], 500);
+        // }
+
+        Comments::create(['parent_id' => $request->parent_id,
+        'author' => $request->author,
+        'message' => $request->message,
+        'created_at' => Carbon\Carbon::now()
+        ]);
+
+        return response()->json(['messege' => 'Add_Success!'], 200);
     }
-
-    public function destroy($id)
-    {
-        //
-    }
-
-    // private function makeArray($comments){
-    //     $childs=[];
-        
-    //     foreach($comments as $comment){
-    //         $childs[$comment->parent_id][]=$comment;
-    //     }
-        
-    //     foreach($comments as $comment){
-    //         if(isset($childs[$comment->id]))
-    //             $comment->childs=$childs[$comment->id];
-            
-    //     }
-    //     if(count($childs)>0){
-    //         $tree=$childs[0];
-    //         }
-    //     else {
-    //             $tree=[];
-    //         }
-    //     return $tree;
-    // }
 }

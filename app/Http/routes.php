@@ -11,16 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::resource('names', ['middleware' => 'jwt.auth', 'NameController']);
-
-// Route::get('/', ['middleware' => 'jwt.auth', function() {
-//     echo 'You are logged in!';
-// }]);
-
 Route::post('api/login', 'SingInController@login');
 
 Route::post('api/registration', 'SingInController@register');
@@ -29,10 +19,9 @@ Route::post('api/delete', 'SingInController@deleteUserFromTable');
 
 Route::resource('api', 'SingInController', ['except' => ['index', 'store', 'update']]);
 
-Route::post('api/v2/comments', ['middleware'=>'jwt.auth', 'uses' =>'CommentsController@index']);
+Route::post('api/v2/comments', /*['middleware'=>'jwt.auth', 'uses' =>*/'CommentsController@index'/*]*/);
 
-// Route::post('api/v2/comments','CommentsController@addComment');
-// Route::resource('api/v2', ['middleware'=>'jwt.auth', 'uses' =>'CommentsController']);
+Route::post('api/v2/addcomments', 'CommentsController@addComments');
 
 Route::resource('api/v2', 'CommentsController',
     ['except' => ['create', 'store', 'update', 'show', 'edit']]
